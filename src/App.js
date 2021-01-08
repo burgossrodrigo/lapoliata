@@ -8,7 +8,7 @@ import { Order } from "./Order/Order";
 import { useOpenFood } from "./Hooks/useOpenFood";
 import { useOrders } from "./Hooks/useOrders";
 import { useTitle } from "./Hooks/useTitle";
-import {bemvindo} from "./welcome/welcome.js";
+import {bemvindo} from "./welcome/welcome";
 
 
 
@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-	  <bemvindo/>
+	  <bemvindo />
       <FoodDialog {...openFood} {...orders} />
       <Navbar/>
       <Order {...orders} {...openFood}/>
