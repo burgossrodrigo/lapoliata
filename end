@@ -1,0 +1,47 @@
+[33mcommit 54147e8e105527de8e44aa9045867f4792c34f1f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Fri Jan 8 09:25:55 2021 -0300
+
+     commits still not showing
+
+[33mcommit 0e3734eb7aa7fde5f4fc3d7bcc16c20559e22290[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Fri Jan 8 08:30:05 2021 -0300
+
+    app deployed
+
+[33mcommit 8e86a41910a0cea4763d620f685dbec85e9f9eb3[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Fri Jan 8 06:41:47 2021 -0300
+
+    instaled firebase-tools
+
+[33mcommit 5a96c14796567ed7f81d3b1cff8f4044f6a90289[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Fri Jan 8 06:22:28 2021 -0300
+
+    firebase instaled, working on styled-components of a new pop-up
+
+[33mcommit c07b1f57088461a14f631bf74bbfab92a7fe87de[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Fri Jan 8 04:26:34 2021 -0300
+
+    reinstaled npm...again
+
+[33mcommit 7b3f05eff1810411d752f6ac299010980a87d495[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Thu Jan 7 03:56:58 2021 -0300
+
+    deleting node_modules
+
+[33mcommit a70d57b84b45d46df80446ce4ffe34050c31e8d6[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Wed Jan 6 22:00:15 2021 -0300
+
+    Coldn't install firebase again, deleting json5.cmd
+
+[33mcommit e269d464f4b016eb863f86c7eaaa5459d8180867[m
+Author: burgossrodrigo <rodrigoburgos@live.com>
+Date:   Wed Jan 6 20:54:32 2021 -0300
+
+    Resolvendo problemas no diretório
