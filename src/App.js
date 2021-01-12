@@ -10,10 +10,9 @@ import { useOrders } from "./Hooks/useOrders";
 import { useTitle } from "./Hooks/useTitle";
 
 
-var auth = window.firebase.auth();
-var provider = new window.firebase.auth.GoogleAuthProvider();
+const auth = window.firebase.auth();
+const provider = new window.firebase.auth.GoogleAuthProvider();
 auth.signInWithPopup(provider);
-
 
 
 
@@ -25,8 +24,8 @@ function App() {
 
   return (
     <>
+		
       <GlobalStyle/>
-
       <FoodDialog {...openFood} {...orders} />
       <Navbar/>
       <Order {...orders} {...openFood}/>
