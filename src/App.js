@@ -8,11 +8,10 @@ import { Order } from "./Order/Order";
 import { useOpenFood } from "./Hooks/useOpenFood";
 import { useOrders } from "./Hooks/useOrders";
 import { useTitle } from "./Hooks/useTitle";
+import { useAuthentication } from "./Hooks/useTitle";
 
 
-const auth = window.firebase.auth();
-const provider = new window.firebase.auth.GoogleAuthProvider();
-auth.signInWithPopup(provider);
+
 
 auth.onAuthStateChanged(function(user){
 	
@@ -30,6 +29,7 @@ function App() {
   const openFood = useOpenFood();
   const orders = useOrders();
   useTitle({...openFood, ...orders});
+  const auth = useAuthentication();
 
   return (
     <>
