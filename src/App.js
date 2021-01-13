@@ -8,20 +8,12 @@ import { Order } from "./Order/Order";
 import { useOpenFood } from "./Hooks/useOpenFood";
 import { useOrders } from "./Hooks/useOrders";
 import { useTitle } from "./Hooks/useTitle";
-import { useAuthentication } from "./Hooks/useTitle";
+import { useAuthentication } from "./Hooks/useAuthentication";
 
 
 
 
-auth.onAuthStateChanged(function(user){
-	
-		console.log(user);
-	
-}, function(error){
-	
-	console.log(error);
 
-});
 
 
 
