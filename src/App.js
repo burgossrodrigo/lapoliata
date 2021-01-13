@@ -14,6 +14,15 @@ const auth = window.firebase.auth();
 const provider = new window.firebase.auth.GoogleAuthProvider();
 auth.signInWithPopup(provider);
 
+auth.onAuthStateChanged(function(user){
+	
+		console.log(user);
+	
+}, function(error){
+	
+	console.log(error);
+
+});
 
 
 
