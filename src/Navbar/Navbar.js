@@ -12,6 +12,7 @@ const NavbarStyled = styled.div`
     z-index: 999;
 	display: flex;
 	justify-content: space-between;
+	color: white;
 
 
 `;
@@ -23,28 +24,36 @@ const Logo = styled(Title)`
 
 `;
 
-const userStatus = styled.div`
+const UserStatus = styled.div`
 
 	color: white;
 	font-size: 12px;
 	margin-right: 30px;
+	cursor: pointer;
 	
 
 
 `
 
-export function Navbar(){
+const loginButton = styled.span`
 
-    return <NavbarStyled>
+	cursor: pointer;
+
+`
+
+export function Navbar({login}){
+
+    return ( <NavbarStyled>
         
-        <Logo>Sliceline <span role="img" aria-label="pizza slice">🍕</span></Logo>
-		<userStatus>
-		 teste
-		</userStatus> 
+        <Logo>La Poliata <span role="img" aria-label="pizza slice">🍕</span></Logo>
+		<UserStatus>
+		 <loginButton onClick={login}> Entre / Criar Conta </loginButton>
+		</UserStatus> 
     
         
         </NavbarStyled>
 
+	);
 }
 
 
