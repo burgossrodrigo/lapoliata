@@ -117,6 +117,7 @@ export function Order({ orders, setOrders, setOpenFood }){
                     </OrderContent>
                 )}
                 <DialogFooter>
+					bfb
                     <ConfirmButton>Finalizar pedido</ConfirmButton>
                 </DialogFooter>    
                 

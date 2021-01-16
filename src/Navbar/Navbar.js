@@ -27,7 +27,7 @@ const Logo = styled(Title)`
 const UserStatus = styled.div`
 
 	color: white;
-	font-size: 12px;
+	font-size: 26px;
 	margin-right: 30px;
 	cursor: pointer;
 	
@@ -41,13 +41,15 @@ const loginButton = styled.span`
 
 `
 
-export function Navbar({login}){
+export function Navbar({login, logado}){
 
     return ( <NavbarStyled>
         
         <Logo>La Poliata <span role="img" aria-label="pizza slice">🍕</span></Logo>
 		<UserStatus>
-		 <loginButton onClick={login}> Entre / Criar Conta </loginButton>
+		{/*VERIFICAÇÃO DE LOGADO ATRAVÉS DE VALOR DA VAR LOGADO */} 
+		{logado ? 'Bem vindo à La Poliata, '  :
+		<loginButton onClick={login}> Entre / Criar Conta </loginButton>}
 		</UserStatus> 
     
         
