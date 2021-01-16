@@ -4,6 +4,7 @@ import { DialogFooter, DialogContent, ConfirmButton } from '../FoodDialogue/Food
 import { formatPreco } from "../Data/FoodData";
 import { getPrice } from "../FoodDialogue/FoodDialogue";
 
+
 const OrderStyled = styled.div`
 
     position: fixed;
@@ -50,7 +51,7 @@ nfn
 
 
 
-export function Order({ orders, setOrders, setOpenFood }){
+export function Order({ orders, setOrders, setOpenFood,logado, login }){
 
     const subtotal = orders.reduce((total, order) => {
 
@@ -117,9 +118,16 @@ export function Order({ orders, setOrders, setOpenFood }){
                     </OrderContent>
                 )}
                 <DialogFooter>
-					bfb
-                    <ConfirmButton>Finalizar pedido</ConfirmButton>
+					
+                    <ConfirmButton onClick={() => {
+          if (logado) {
+            console.log("logado");
+          } else {
+            login();
+          }
+        }}>Finalizar pedido</ConfirmButton>
                 </DialogFooter>    
                 
-            </OrderStyled>);
+			</OrderStyled>
+);
 }

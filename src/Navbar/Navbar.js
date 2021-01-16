@@ -35,23 +35,35 @@ const UserStatus = styled.div`
 
 `
 
-const loginButton = styled.span`
+const LoginButton = styled.span`
 
 	cursor: pointer;
 
 `
 
-export function Navbar({login, logado}){
+export function Navbar({login, logado, logout}){
 
     return ( <NavbarStyled>
         
         <Logo>La Poliata <span role="img" aria-label="pizza slice">🍕</span></Logo>
 		<UserStatus>
 		{/*VERIFICAÇÃO DE LOGADO ATRAVÉS DE VALOR DA VAR LOGADO */} 
-		{logado === 'carregando' ? 'Carregando...' : logado ? 'Bem vindo à La Poliata, '  :
-		<loginButton onClick={login}> Entre / Criar Conta </loginButton>}
+		{logado !== 'carregando' ? (
+		<>
+			<span role="img" aria-label="man">👨</span>{ logado ? 'Logado.' : "   "}
+				{logado ? (
+					<LoginButton onClick={logout}>{"   "}Sair</LoginButton>
+			) : (
+					<LoginButton onClick={login}> Entre / Criar Conta </LoginButton>)}
+			
+		</>
+		
+		) : (
+		
+			"Carregando..."
+		
+		)}
 		</UserStatus> 
-    
         
         </NavbarStyled>
 
