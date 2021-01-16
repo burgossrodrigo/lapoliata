@@ -48,7 +48,7 @@ export function Navbar({login, logado}){
         <Logo>La Poliata <span role="img" aria-label="pizza slice">🍕</span></Logo>
 		<UserStatus>
 		{/*VERIFICAÇÃO DE LOGADO ATRAVÉS DE VALOR DA VAR LOGADO */} 
-		{logado ? 'Bem vindo à La Poliata, '  :
+		{logado === 'carregando' ? 'Carregando...' : logado ? 'Bem vindo à La Poliata, '  :
 		<loginButton onClick={login}> Entre / Criar Conta </loginButton>}
 		</UserStatus> 
     
