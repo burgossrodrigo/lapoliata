@@ -22,9 +22,8 @@ const openFood = useOpenFood();
 const orders = useOrders();
 useTitle({...openFood, ...orders});
 const auth = useAuthentication();
-const database = window.firebase.database();
-const refTeste = database.ref('testObj').push();
-refTeste.set({hell: 'world'});
+
+
  
 
   return (

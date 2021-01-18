@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { DialogFooter, DialogContent, ConfirmButton } from '../FoodDialogue/FoodDialogue';
 import { formatPreco } from "../Data/FoodData";
 import { getPrice } from "../FoodDialogue/FoodDialogue";
+const database = window.firebase.database();
 
 
 const OrderStyled = styled.div`
@@ -37,7 +38,7 @@ const OrderContainer = styled.div`
 
 const OrderItem = styled.div`
 nfn
-    padding: 10px 0px;
+    padding: 10px 0hhhpx;
     display: grid;
     grid-template-collum: 20px 150px 20px 60px;
     justify-content: space-between;
@@ -46,6 +47,30 @@ nfn
 `;
 
 
+
+export function sendOrder(orders, {email, displayName}){
+	
+	const newOrderRef = database.ref('orders').push();
+	const newOrder = orders.map(order => {
+    return Object.keys(order).reduce((acc, orderKey) => {
+      if (!order[orderKey]) {
+        // undefined value
+        return acc;
+      }
+      return {
+        ...acc,
+        [orderKey]: order[orderKey]
+      };
+    }, {});
+  });
+  
+	newOrderRef.set({
+		
+		order: newOrder,
+		email,
+		displayName
+	});
+}
 
 
 
@@ -121,7 +146,7 @@ export function Order({ orders, setOrders, setOpenFood,logado, login }){
 					
                     <ConfirmButton onClick={() => {
           if (logado) {
-            console.log("logado");
+            sendOrder(orders, logado);
           } else {
             login();
           }
