@@ -7,7 +7,7 @@ import { formatPreco } from "../Data/FoodData";
 import { QuantityInput } from "./QuantityInput";
 import { useQuantity } from "../Hooks/useQuantity";
 
-const Dialog = styled.div`
+export const Dialog = styled.div`
 
     position: fixed;
     right: 50%;
@@ -25,7 +25,7 @@ const Dialog = styled.div`
 
 `;
 
-const DialogShadow = styled.div`
+export const DialogShadow = styled.div`
 
     position: fixed;
     height: 100%;
@@ -38,7 +38,7 @@ const DialogShadow = styled.div`
 
 `;
 
-const DialogBanner = styled.div`
+export const DialogBanner = styled.div`
 
     min-height: 200px;
     margin-bottom: 20px;
@@ -48,7 +48,7 @@ const DialogBanner = styled.div`
 
 `;
 
-const DialogBannerName = styled(FoodLabel)`
+export const DialogBannerName = styled(FoodLabel)`
 
     top: 100px;
     font-size: 30px;
@@ -105,7 +105,7 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }){
     
     
     
-    function close(){
+     function close(){
         
         setOpenFood();
     }
