@@ -11,6 +11,8 @@ import { useTitle } from "./Hooks/useTitle";
 import { useAuthentication } from "./Hooks/useAuthentication";
 import { useOrderDialog } from './Hooks/useOrderDialog';
 import { OrderDialog } from "./Order/OrderDialog";
+import { useOrderContainer } from "./Hooks/useOrderContainer";
+
  
 
 
@@ -25,8 +27,7 @@ const orders = useOrders();
 useTitle({...openFood, ...orders});
 const auth = useAuthentication();
 const orderDialog = useOrderDialog();
-
-
+const orderContainer = useOrderContainer();
  
 
   return (
@@ -36,7 +37,7 @@ const orderDialog = useOrderDialog();
 	<OrderDialog {...orderDialog} {...orders}/>
     <FoodDialog {...openFood} {...orders} />
 	<Navbar {...auth} />
-	<Order {...orders} {...openFood} {...auth}/>
+	<Order {...orderContainer} {...orderDialog} {...orders} {...openFood} {...auth}/>
     <Banner/>
     <Menu {...openFood}/>
     

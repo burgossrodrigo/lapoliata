@@ -1,8 +1,10 @@
 import React from 'react';
+import { setState } from 'react';
 import styled from 'styled-components';
 import { DialogFooter, DialogContent, ConfirmButton } from '../FoodDialogue/FoodDialogue';
 import { formatPreco } from "../Data/FoodData";
 import { getPrice } from "../FoodDialogue/FoodDialogue";
+
 const database = window.firebase.database();
 
 
@@ -48,6 +50,9 @@ nfn
 
 
 
+
+
+
 export function sendOrder(orders, {email, displayName}){
 	
 	const newOrderRef = database.ref('orders').push();
@@ -76,7 +81,7 @@ export function sendOrder(orders, {email, displayName}){
 
 
 
-export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrderDialog }){
+export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrderDialog, setOpenOrderContainer, openOrderContainer }){
 
     const subtotal = orders.reduce((total, order) => {
 
@@ -96,9 +101,16 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
         setOrders(newOrders);
 
 
-    }  
+    }
+    
+    
+	
+    return (<OrderStyled>
 
-    return  (<OrderStyled>
+
+
+
+
                 { orders.length === 0 ?  
                 <OrderContent>
                     Carrinho vazio.
@@ -153,7 +165,7 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
           }
 					}}>Finalizar pedido</ConfirmButton> }
                 </DialogFooter>    
-                
+               
 			</OrderStyled>
 );
 }

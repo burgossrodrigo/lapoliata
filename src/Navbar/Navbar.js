@@ -33,13 +33,16 @@ const UserStatus = styled.div`
 	
 
 
-`
+`;
 
 const LoginButton = styled.span`
 
 	cursor: pointer;
 
-`
+`;
+
+
+
 
 export function Navbar({login, logado, logout}){
 
@@ -63,7 +66,8 @@ export function Navbar({login, logado, logout}){
 			"Carregando..."
 		
 		)}
-		</UserStatus> 
+		</UserStatus>
+		 
         
         </NavbarStyled>
 
