@@ -28,6 +28,9 @@ useTitle({...openFood, ...orders});
 const auth = useAuthentication();
 const orderDialog = useOrderDialog();
 const orderContainer = useOrderContainer();
+const pizzaSize = usePizzaSize();
+const pizzaSizeDialog = usePizzaSizeDialog();
+console.log(orderContainer);
  
 
   return (
@@ -36,10 +39,10 @@ const orderContainer = useOrderContainer();
     <GlobalStyle/>
 	<OrderDialog {...orderDialog} {...orders}/>
     <FoodDialog {...openFood} {...orders} />
-	<Navbar {...auth} />
-	<Order {...orderContainer} {...orderDialog} {...orders} {...openFood} {...auth}/>
+	<Navbar {...auth} {...orderContainer}/>
+  <Order {...pizzaSizeDialog} {...orderContainer} {...orderDialog} {...orders} {...openFood} {...auth}/>
     <Banner/>
-    <Menu {...openFood}/>
+    <Menu {...pizzaSizeDialog} {...openFood}/>
     
     </>  
   );

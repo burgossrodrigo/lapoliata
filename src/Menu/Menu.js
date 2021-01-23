@@ -13,7 +13,7 @@ const MenuStyled = styled.div`
 
 `
 
-export function Menu({ setOpenFood }) {
+export function Menu({ setOpenFood, openPizzaSize, openPizzaSizeDialog }) {
 
 
     return( 
@@ -25,8 +25,8 @@ export function Menu({ setOpenFood }) {
                         {foods.map(food =>(
 
                             <Food img={food.img} onClick={() => {
-
-                                setOpenFood(food);
+                               ( openPizzaSizeDialog === false ?
+                                setOpenFood(food);) : (order.lenght === openPizzaSize ? alert('Sua pizza só suporta' openPizzaSize' fatias. Que tal pedir uma maior?'); )
 
                             }} >
                                 <FoodLabel>

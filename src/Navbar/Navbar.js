@@ -44,15 +44,16 @@ const LoginButton = styled.span`
 
 
 
-export function Navbar({login, logado, logout}){
+export function Navbar({login, logado, logout, openOrderContainer, setOpenOrderContainer}){
 
     return ( <NavbarStyled>
         
-        <Logo>La Poliata <span role="img" aria-label="pizza slice">🍕</span></Logo>
+		<Logo>La Poliata <span role="img" aria-label="pizza slice" >🍕</span></Logo>
 		<UserStatus>
 		{/*VERIFICAÇÃO DE LOGADO ATRAVÉS DE VALOR DA VAR LOGADO */} 
 		{logado !== 'carregando' ? (
 		<>
+			<LoginButton><span role="img" aria-label="cart" onClick={() => {openOrderContainer ? setOpenOrderContainer(false) : setOpenOrderContainer(true) }} >🛒	</span></LoginButton>
 			<span role="img" aria-label="man">👨</span>{ logado ? 'Logado.' : "   "}
 				{logado ? (
 					<LoginButton onClick={logout}>{"   "}Sair</LoginButton>

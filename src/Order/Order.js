@@ -5,11 +5,14 @@ import { DialogFooter, DialogContent, ConfirmButton } from '../FoodDialogue/Food
 import { formatPreco } from "../Data/FoodData";
 import { getPrice } from "../FoodDialogue/FoodDialogue";
 
+
 const database = window.firebase.database();
 
 
-const OrderStyled = styled.div`
 
+
+const OrderStyled = styled.div`
+    
     position: fixed;
     right: 0px;
     top: 30px;
@@ -19,8 +22,8 @@ const OrderStyled = styled.div`
     height: calc(100% - 50px);
     z-index: 10;
     box-shadow: 4px 0px 5px 5px grey;
-    display: flex;
     flex-direction: column;
+    display: flex;
 
 `;
 
@@ -54,6 +57,13 @@ nfn
 
 
 export function sendOrder(orders, {email, displayName}){
+
+  function RetornaDataHoraAtual(){
+    var dNow = new Date();
+    var localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + '  '  + dNow.getHours() + ':' + dNow.getMinutes();
+    return localdate;
+    }
+    
 	
 	const newOrderRef = database.ref('orders').push();
 	const newOrder = orders.map(order => {
@@ -73,7 +83,8 @@ export function sendOrder(orders, {email, displayName}){
 		
 		order: newOrder,
 		email,
-		displayName
+    displayName,
+    horaLocal: RetornaDataHoraAtual()
 	});
 }
 
@@ -81,8 +92,9 @@ export function sendOrder(orders, {email, displayName}){
 
 
 
-export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrderDialog, setOpenOrderContainer, openOrderContainer }){
+export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrderDialog, openOrderContainer   }){
 
+    
     const subtotal = orders.reduce((total, order) => {
 
 
@@ -103,14 +115,13 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
 
     }
     
-    
 	
-    return (<OrderStyled>
+    return (openOrderContainer === true ? <OrderStyled>
 
 
 
-
-
+            
+              
                 { orders.length === 0 ?  
                 <OrderContent>
                     Carrinho vazio.
@@ -167,5 +178,5 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
                 </DialogFooter>    
                
 			</OrderStyled>
-);
+: <div />);
 }
