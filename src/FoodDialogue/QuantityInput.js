@@ -49,7 +49,7 @@ export function QuantityInput({quantity}){
                     <IncrementButton disabled={quantity.value === 3} 
                     onClick={() => {quantity.setValue(quantity.value + 1);}} 
                     >
-                        +
+                        
                     </IncrementButton>
                     <QuantityInputStyle {...quantity}/>
                     <IncrementButton disabled={quantity.value === 1} onClick={() => {quantity.setValue(quantity.value - 1)}} >-</IncrementButton>   

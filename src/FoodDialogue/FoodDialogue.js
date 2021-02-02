@@ -99,7 +99,7 @@ export function getPrice(order){
 
 
 
-function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }){
+function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders, openPizzaSize }){
     
     const quantity = useQuantity(openFood && openFood.quantity);
     
@@ -139,10 +139,11 @@ function FoodDialogContainer({ openFood, setOpenFood, setOrders, orders }){
                     <DialogBannerName>{openFood.name}</DialogBannerName>
                     </DialogBanner>
                     <DialogContent>
-                        <QuantityInput quantity={quantity} />       
+                               
                     </DialogContent>
                     <DialogFooter>
-        <ConfirmButton onClick={addToOrder}> {formatPreco(getPrice(order))} Pedir! </ConfirmButton>
+                    <ConfirmButton onClick={orders.lenght >= openPizzaSize  ? alert('Sua pizza não comporta tantos sabores, que tal pedir uma maior?') : addToOrder}>{formatPreco(getPrice(order))} Adicionar! 
+                    </ConfirmButton>
                     </DialogFooter>
                 </Dialog>
             

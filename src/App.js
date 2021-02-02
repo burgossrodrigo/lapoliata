@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
 import {GlobalStyle} from './Styles/GlobalStyle';
 import {Navbar} from "./Navbar/Navbar";
 import {Banner} from "./Banner/Banner";
@@ -12,6 +11,11 @@ import { useAuthentication } from "./Hooks/useAuthentication";
 import { useOrderDialog } from './Hooks/useOrderDialog';
 import { OrderDialog } from "./Order/OrderDialog";
 import { useOrderContainer } from "./Hooks/useOrderContainer";
+import { useAlert } from 'react-alert';
+import { usePizzaSize } from './Hooks/usePizzaSize';
+import { usePizzaSizeDialog } from './Hooks/usePizzaSize';
+import { PizzaSizeDialog } from './welcome/PizzaSizeDialog';
+import { FinalForm } from './Order/finalForm';
 
  
 
@@ -22,27 +26,32 @@ import { useOrderContainer } from "./Hooks/useOrderContainer";
 
 
 function App() {
+const alert = useAlert()
 const openFood = useOpenFood();
 const orders = useOrders();
 useTitle({...openFood, ...orders});
 const auth = useAuthentication();
 const orderDialog = useOrderDialog();
 const orderContainer = useOrderContainer();
-const pizzaSize = usePizzaSize();
 const pizzaSizeDialog = usePizzaSizeDialog();
-console.log(orderContainer);
+const pizzaSize = usePizzaSize();
+console.log(pizzaSize);
+console.log(orders.lenght);
+
  
 
   return (
     <>
 		
-    <GlobalStyle/>
+  <GlobalStyle/>
 	<OrderDialog {...orderDialog} {...orders}/>
-    <FoodDialog {...openFood} {...orders} />
+  <FinalForm {...orders} {...pizzaSize} {...pizzaSizeDialog} />
+  <PizzaSizeDialog {...pizzaSize} {...pizzaSizeDialog} />
+  <FoodDialog {...openFood} {...orders} {...pizzaSize} />
 	<Navbar {...auth} {...orderContainer}/>
-  <Order {...pizzaSizeDialog} {...orderContainer} {...orderDialog} {...orders} {...openFood} {...auth}/>
-    <Banner/>
-    <Menu {...pizzaSizeDialog} {...openFood}/>
+  <Order {...pizzaSize} {...orderContainer} {...orderDialog} {...orders} {...openFood} {...auth}/>
+  <Banner/>
+  <Menu {...pizzaSize} {...openFood} {...orders} {...pizzaSizeDialog}/>
     
     </>  
   );
