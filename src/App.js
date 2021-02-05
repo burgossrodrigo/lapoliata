@@ -16,6 +16,7 @@ import { usePizzaSize } from './Hooks/usePizzaSize';
 import { usePizzaSizeDialog } from './Hooks/usePizzaSize';
 import { PizzaSizeDialog } from './welcome/PizzaSizeDialog';
 import { FinalForm } from './Order/finalForm';
+import Geocode from "react-geocode";
 
  
 
@@ -26,6 +27,7 @@ import { FinalForm } from './Order/finalForm';
 
 
 function App() {
+Geocode.setApiKey("AIzaSyC_YYlEmoA0zK021Sb5bsz8Jem0N0WjXnY");  
 const alert = useAlert()
 const openFood = useOpenFood();
 const orders = useOrders();

@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "firebaseui": "^4.7.1",
     "git": "^0.1.5",
+    "google-maps-react": "^2.0.6",
     "react": "^17.0.1",
     "react-alert": "^7.0.2",
     "react-alert-template-basic": "^1.0.0",

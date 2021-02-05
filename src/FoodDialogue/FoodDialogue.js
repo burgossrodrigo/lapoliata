@@ -21,6 +21,7 @@ export const Dialog = styled.div`
     flex-direction: column;
     max-height: calc(100% - 100px);
     left: calc(50% - 250px);
+    border-radius: 10px;
 
 
 `;
