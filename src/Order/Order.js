@@ -1,5 +1,4 @@
 import React from 'react';
-import { setState } from 'react';
 import styled from 'styled-components';
 import { DialogFooter, DialogContent, ConfirmButton } from '../FoodDialogue/FoodDialogue';
 import { formatPreco } from "../Data/FoodData";
@@ -58,41 +57,14 @@ nfn
 
 export function sendOrder(orders, {email, displayName}){
 
-  function RetornaDataHoraAtual(){
-    var dNow = new Date();
-    var localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + '  '  + dNow.getHours() + ':' + dNow.getMinutes();
-    return localdate;
-    }
-    
-	
-	const newOrderRef = database.ref('orders').push();
-	const newOrder = orders.map(order => {
-    return Object.keys(order).reduce((acc, orderKey) => {
-      if (!order[orderKey]) {
-        // undefined value
-        return acc;
-      }
-      return {
-        ...acc,
-        [orderKey]: order[orderKey]
-      };
-    }, {});
-  });
   
-	newOrderRef.set({
-		
-		order: newOrder,
-		email,
-    displayName,
-    horaLocal: RetornaDataHoraAtual()
-	});
 }
 
 
 
 
 
-export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrderDialog, openOrderContainer   }){
+export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrderDialog, openOrderContainer, setUseFinalFormDialog, useFinalFormDialog   }){
 
     
     const subtotal = orders.reduce((total, order) => {
@@ -169,8 +141,8 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
 					
 					{orders.length > 0 && <ConfirmButton onClick={() => {
           if (logado) {
-			  setOpenOrderDialog(true);
-            sendOrder(orders, logado);
+        setUseFinalFormDialog(true);
+		console.log(useFinalFormDialog);
           } else {
             login();
           }

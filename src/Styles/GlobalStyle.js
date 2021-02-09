@@ -39,5 +39,20 @@ export const GlobalStyle = createGlobalStyle`
 
   }
   
+  input[type=checkbox]{
+	  
+	  border-bottom: 1px solid #ff3838;
+	  
+  }
+  
+  label{
+	  
+	  display: flex;
+	  flex-direction: collum;
+	  
+  }
+  
+
+  
 
 `

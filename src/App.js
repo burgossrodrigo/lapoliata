@@ -16,8 +16,8 @@ import { usePizzaSize } from './Hooks/usePizzaSize';
 import { usePizzaSizeDialog } from './Hooks/usePizzaSize';
 import { PizzaSizeDialog } from './welcome/PizzaSizeDialog';
 import { FinalForm } from './Order/finalForm';
+import { useFinalFormDialog } from './Hooks/useFinalForm'; 
 import Geocode from "react-geocode";
-
  
 
 
@@ -37,8 +37,10 @@ const orderDialog = useOrderDialog();
 const orderContainer = useOrderContainer();
 const pizzaSizeDialog = usePizzaSizeDialog();
 const pizzaSize = usePizzaSize();
+const finalFormDialog = useFinalFormDialog();
 console.log(pizzaSize);
 console.log(orders.lenght);
+console.log(useOrderContainer);
 
  
 
@@ -47,11 +49,11 @@ console.log(orders.lenght);
 		
   <GlobalStyle/>
 	<OrderDialog {...orderDialog} {...orders}/>
-  <FinalForm {...orders} {...pizzaSize} {...pizzaSizeDialog} />
-  <PizzaSizeDialog {...pizzaSize} {...pizzaSizeDialog} />
+  <FinalForm {...orders} {...pizzaSize} {...pizzaSizeDialog} {...finalFormDialog} />
+  <PizzaSizeDialog {...pizzaSize} {...pizzaSizeDialog} /> 
   <FoodDialog {...openFood} {...orders} {...pizzaSize} />
 	<Navbar {...auth} {...orderContainer}/>
-  <Order {...pizzaSize} {...orderContainer} {...orderDialog} {...orders} {...openFood} {...auth}/>
+  <Order {...pizzaSize} {...orderContainer} {...orderDialog} {...finalFormDialog} {...orders} {...openFood} {...auth}/>
   <Banner/>
   <Menu {...pizzaSize} {...openFood} {...orders} {...pizzaSizeDialog}/>
     
