@@ -141,8 +141,10 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
 					
 					{orders.length > 0 && <ConfirmButton onClick={() => {
           if (logado) {
-        setUseFinalFormDialog(true);
+			  if(useFinalFormDialog === false){
+			  setUseFinalFormDialog(true)}
 		console.log(useFinalFormDialog);
+		console.log(typeof setUseFinalFormDialog);
           } else {
             login();
           }

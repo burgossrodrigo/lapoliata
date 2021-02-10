@@ -24,8 +24,7 @@ const sharedStyles = css`
 const FormBox = styled.div` 
 
     background-color: white;
-    width: 802px;
-    height: 540px;
+    width: 500px;
     position: fixed;
     z-index: 1001;
     box-shadow: 4px 0px 5px 5px grey;
@@ -33,31 +32,9 @@ const FormBox = styled.div`
     flex-direction: column;
     padding: 0px;
     top: 75px;
-    left: 217px;
     border-radius: 10px;
     font-size: 20px;
     color: red;
-`;
-
-const FormLeft = styled.div`
-
-	widht: 400px;
-	position: relative;
-	
-	float: left;
-	    
-
-`;
-
-const FormRight = styled.div`
-
-    width: 300px;
-    position: relative;
-    float: left;
-    flex-direction: column;
-    padding: 58px;
-	    bottom: 60px;
-
 `;
 
 const FormBanner = styled.div`
@@ -159,11 +136,18 @@ export function sendUserAdress(finalFormValues, {email, displayName}){
 
 
 
-export function FinalForm(orders, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize){
+
+export function FinalForm({orders, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize}){
 	
 	
     
-
+	function precoTotal(){
+		
+		if(openPizzaSize === 2){return formatPreco(42,90)};
+		if(openPizzaSize === 3){return formatPreco(47,90)};
+		if(openPizzaSize === 4){return formatPreco(52,90)};
+		
+	}
 
 	
    
@@ -208,7 +192,7 @@ export function FinalForm(orders, order, logado, login, endereco, setOrders, set
 
 
       
-      Geocode.fromAddress().then(
+      /*Geocode.fromAddress().then(
         response => {
           const { lat, lng } = response.results[0].geometry.location;
           console.log(lat, lng);
@@ -216,7 +200,7 @@ export function FinalForm(orders, order, logado, login, endereco, setOrders, set
         error => {
           console.error(error);
         }
-      );
+      );*/
   
   
   
@@ -224,14 +208,15 @@ export function FinalForm(orders, order, logado, login, endereco, setOrders, set
 
     return(
         
-		
+		useFinalFormDialog  ? 	
 			<FormBox>
 			
-				<FormBanner>Total:<div>{formatPreco(getPrice)}</div></FormBanner>
+				<FormBanner>Total:<div><>{precoTotal()}</></div></FormBanner>
 				<form onSubmit={handleSubmit}  >
-				<FormLeft>
+				
 					Nos diga seu bairro:
-					<FormStyle><select name='bairros' onChange={handleInputChange} value={finalFormValues.bairros || null}>
+					<FormStyle><select name='bairros' placeholder='--' onChange={handleInputChange} value={finalFormValues.bairros || ''}>
+					<option value="laranja">--</option>
 					<option value="laranja">Laranja</option>
 					<option value="limao">Limão</option>
 					<option selected value="coco">Coco</option>
@@ -240,23 +225,29 @@ export function FinalForm(orders, order, logado, login, endereco, setOrders, set
 					A rua que mora, número e cep por favor:
 					<FormStyle><input type='text' name='rua' placeholder='Rua' onChange={handleInputChange}  /></FormStyle>
 					<FormStyle><input type='text' name='numero' placeholder='Número' onChange={handleInputChange}  /></FormStyle>
-					<FormStyle><input type='text' name='cep' placeholder='CEP 10100-100' onChange={handleInputChange}  /></FormStyle>
+					
 					Só falta um poquinho, complemento:
 					<FormStyle><input type='text' name='complemento' placeholder='Complemento: casa ou bloco e apto' onChange={handleInputChange}  /></FormStyle>
-				</FormLeft>
-				<FormRight>
-					Que tal um refrigerante(escolha um):
-					<FormStyle><label><input type='checkbox' label="Start" labelPlacement="start"  name='refrigerante' value='Cola 1 Litro' />Refrigerante de cola litro</label></FormStyle>
-					<FormStyle><label><input type='checkbox'   label="Start" labelPlacement="start" name='refrigerante' value='Cola 1 Litro' />Refrigerante guaraná litro</label></FormStyle>
-					Observações:
-					<FormStyle><input type='textarea' name='observações' placeholder='Buzinar uma vez só ou tenho alergia a camarão' onChange={handleInputChange} value={finalFormValues.observações || ''} /></FormStyle>
+				
+				
+					Que tal um refrigerante:
+					<FormStyle><select name='refrigerante' placeholder='--' onChange={handleInputChange} value={finalFormValues.refrigerante || ''}>
+					<option value="laranja">--</option>
+					<option value="limao">Refrigerante de cola Litro</option>
+					<option selected value="coco">Guaraná Litro</option>
+	
+					</select></FormStyle>
+					
+					
 					Forma de pagamento:
-					<FormStyle><select name='pagamento' onChange={handleInputChange} value={finalFormValues.pagamento || null}>
+					<FormStyle><select name='pagamento' placeholder='--'  onChange={handleInputChange} value={finalFormValues.pagamento || ''}>
+					<option value="laranja">--</option>
 					<option value="dinheiro">Dinheiro</option>
 					<option value="cartão">Cartão</option>
-					(finalFormValues.pagamento === dinheiro) ? (<FormStyle><input type='text' name='troco' placeholder='Troco pra quanto?' onChange={handleInputChange}  /></FormStyle>) : (<div/>)
 					</select></FormStyle>
-				</FormRight>
+					{finalFormValues.pagamento === 'dinheiro' ? (<FormStyle><input type='text' name='troco' placeholder='Troco pra quanto?' onChange={handleInputChange}  /></FormStyle>) : (<div/>)}
+					
+				
 
 				
 				</form><DialogFooter><ConfirmButton onclick={() => {
@@ -265,7 +256,7 @@ export function FinalForm(orders, order, logado, login, endereco, setOrders, set
 				sendUserAdress(endereco, logado);
 				setOrders([]);
 				setUseFinalFormDialog(false);
-				setUsePizzaSize();
+				setUsePizzaSize(false);
 				
 				
 				}
@@ -274,9 +265,9 @@ export function FinalForm(orders, order, logado, login, endereco, setOrders, set
 				</ConfirmButton>
 				</DialogFooter>
 				
-			</FormBox>
+			</FormBox> : <div />
 
-
+ 
 );
 }
 

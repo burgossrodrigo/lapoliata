@@ -18,7 +18,7 @@ const MenuStyled = styled.div`
         margin: 0px; 
       }
 
-`
+` 
 
 export function Menu({ setOpenFood, openPizzaSize, orders }) {
 

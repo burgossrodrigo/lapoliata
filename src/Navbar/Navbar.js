@@ -48,7 +48,7 @@ export function Navbar({login, logado, logout, openOrderContainer, setOpenOrderC
 
     return ( <NavbarStyled>
         
-		<Logo>La Poliata <span role="img" aria-label="pizza slice" >🍕</span></Logo>
+		<Logo><span role="img" aria-label="pizza slice" ></span></Logo>
 		<UserStatus>
 		{/*VERIFICAÇÃO DE LOGADO ATRAVÉS DE VALOR DA VAR LOGADO */} 
 		{logado !== 'carregando' ? (
