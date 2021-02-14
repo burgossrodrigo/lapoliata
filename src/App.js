@@ -16,8 +16,13 @@ import { usePizzaSize } from './Hooks/usePizzaSize';
 import { usePizzaSizeDialog } from './Hooks/usePizzaSize';
 import { PizzaSizeDialog } from './welcome/PizzaSizeDialog';
 import { FinalForm } from './Order/finalForm';
-import { useFinalFormDialog } from './Hooks/useFinalForm'; 
+import { useFinalFormDialog } from './Hooks/useFinalForm';
 import Geocode from "react-geocode";
+
+
+
+
+
  
 
 
@@ -42,6 +47,16 @@ console.log(pizzaSize);
 console.log(orders.lenght);
 console.log(useOrderContainer);
 
+
+ 
+
+	console.log(typeof firebaseDbInstance);
+	
+	
+	
+	
+
+
  
 
   return (
@@ -49,7 +64,7 @@ console.log(useOrderContainer);
 		
   <GlobalStyle/>
 	<OrderDialog {...orderDialog} {...orders}/>
-  <FinalForm {...orders} {...pizzaSize} {...pizzaSizeDialog} {...finalFormDialog} />
+  <FinalForm {...orders} {...pizzaSize} {...pizzaSizeDialog} {...finalFormDialog} {...auth}  />
   <PizzaSizeDialog {...pizzaSize} {...pizzaSizeDialog} /> 
   <FoodDialog {...openFood} {...orders} {...pizzaSize} />
 	<Navbar {...auth} {...orderContainer}/>

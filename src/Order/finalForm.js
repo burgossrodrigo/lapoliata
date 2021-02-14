@@ -6,9 +6,13 @@ import { GlobalStyle } from '../Styles/GlobalStyle';
 import Geocode from "react-geocode";
 import {  DialogShadow, DialogFooter, ConfirmButton,  } from "../FoodDialogue/FoodDialogue";
 import { formatPreco } from "../Data/FoodData";
-import { getPrice } from "../FoodDialogue/FoodDialogue";
+import { getPrice } from "../FoodDialogue/FoodDialogue";;
 
 const database = window.firebase.database();
+
+
+
+
 
 
 const sharedStyles = css`
@@ -110,7 +114,7 @@ export function sendUserAdress(finalFormValues, {email, displayName}){
     }
     
   
-  const newEnderecoRef = database.ref('endereço').push();
+  const newEnderecoRef = database.ref('endereco').push();
   const newAdress = finalFormValues.map(endereco => {
     return Object.keys(endereco).reduce((acc, enderecoKey) => {
       if (!endereco[enderecoKey]) {
@@ -137,7 +141,7 @@ export function sendUserAdress(finalFormValues, {email, displayName}){
 
 
 
-export function FinalForm({orders, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize}){
+export function FinalForm({orders, firebaseForm, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize, email}){
 	
 	
     
@@ -176,17 +180,18 @@ export function FinalForm({orders, sendOrder, sendUserAdress, order, logado, log
 		
 		
     };
+	
+	
 
     const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+	sendUserAdress(finalFormValues, logado)
+	
+	
+  };
 
-        e.preventDefault();
-        const formData = new formData(e.target);
-        const dataForm = Object.fromEntries(formData);
-
-        console.log('*** handleSubmit', dataForm);
-        setFinalFormValues(e.target.value);
-
-    };
 
       /* GOOGLE MAPS https://pt.stackoverflow.com/questions/130278/converter-cep-para-latitude-e-longitude-javascript */
 
@@ -208,8 +213,145 @@ export function FinalForm({orders, sendOrder, sendUserAdress, order, logado, log
 
     return(
         
-		useFinalFormDialog  ? 	
-			<FormBox>
+		useFinalFormDialog  ?
+	<FormBox>
+		
+		<FormBanner>Total:<div><>{precoTotal()}</></div></FormBanner>
+				<form onSubmit={handleSubmit}  >
+				
+					Nos diga seu bairro:
+					<FormStyle><select name='bairros' placeholder='--' onChange={handleInputChange} value={finalFormValues.bairros || ''}>
+					<option value="laranja">--</option>
+					<option value="laranja">Laranja</option>
+					<option value="limao">Limão</option>
+					<option selected value="coco">Coco</option>
+					<option value="manga">Manga</option>
+					</select></FormStyle>
+					A rua que mora, número e cep por favor:
+					<FormStyle><input type='text' name='rua' placeholder='Rua' onChange={handleInputChange}  /></FormStyle>
+					<FormStyle><input type='text' name='numero' placeholder='Número' onChange={handleInputChange}  /></FormStyle>
+					
+					Só falta um poquinho, complemento:
+					<FormStyle><input type='text' name='complemento' placeholder='Complemento: casa ou bloco e apto' onChange={handleInputChange}  /></FormStyle>
+				
+				
+					Que tal um refrigerante:
+					<FormStyle><select name='refrigerante' placeholder='--' onChange={handleInputChange} value={finalFormValues.refrigerante || ''}>
+					<option value="laranja">--</option>
+					<option value="limao">Refrigerante de cola Litro</option>
+					<option selected value="coco">Guaraná Litro</option>
+	
+					</select></FormStyle>
+					
+					
+					Forma de pagamento:
+					<FormStyle><select name='pagamento' placeholder='--'  onChange={handleInputChange} value={finalFormValues.pagamento || ''}>
+					<option value="laranja">--</option>
+					<option value="dinheiro">Dinheiro</option>
+					<option value="cartão">Cartão</option>
+					</select></FormStyle>
+					{finalFormValues.pagamento === 'dinheiro' ? (<FormStyle><input type='text' name='troco' placeholder='Troco pra quanto?' onChange={handleInputChange}  /></FormStyle>) : (<div/>)}
+					<button type="submit">Salvar endereço</button>
+				
+
+				
+				</form><DialogFooter>
+				
+					<ConfirmButton onClick={(e) => {console.log('funcionando');
+						sendOrder(orders, logado); 
+						 
+						setOrders([]); 
+						setUseFinalFormDialog(false); 
+						setUsePizzaSize(false);}}>
+						Pode mandar!
+					</ConfirmButton>
+				
+				</DialogFooter>
+
+	</FormBox>
+			 : <div />
+
+ 
+);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+<FirebaseForm dbRef={dbRef}>
+      <div>Nos diga seu bairro:</div>
+      <div>Name</div>
+      <input onChange={(e) => setName(e.target.value)} value={name} refkey="name" />
+      <div>Email</div>
+      <input refkey="email" type="email" />
+      <div>
+        <div>Also supports nested inputs</div>
+        <input refkey="agreeToTOS" type="checkbox"/>
+      </div>
+      <button>Submit</button>
+    </FirebaseForm>
+
+
+
+
+*/
+
+
+
+/*
+
+<FirebaseForm dbRef={dbRef}>
+	<input type={text} value={email} />
+	<div>Nos diga seu bairro:</div>
+		<input onChange={handleInputChange} value={finalFormValues.name} refKey={bairro} type={text}  />
+	<div>Rua:</div>
+		<input onChange={handleInputChange} value={finalFormValues.rua} refKey={rua} type={text} />
+	<div>Número</div>	
+		<input onChange={handleInputChange} value={finalFormValues.numero} refKey={numero} type={number} />
+	<div>Forma de Pagamento</div>	
+		<div style='radioButtom' onChange={handleInputChange} >
+			<input type="radio" value="cartao" name="pagamento" onChange={handleInputChange} refKey={pagamento} checked={finalFormValues.pagamento === cartão} /> Cartão
+			<input type="radio" value="dinheiro" name="pagamento" onChange={handleInputChange} checked={finalFormValues.pagamento === dinheiro}  /> Dinheiro
+		</div>
+		<div>
+		{
+			
+			finalFormValues.pagamento === dinheiro ? <div>Troco para:</div>	
+		<input onChange={handleInputChange} value={finalFormValues.troco} refKey={troco} type={text} />
+			
+		}
+		</div>
+		<button>Submit</button>
+		
+</FirebaseForm>
+
+
+
+
+
+
+nChange={handleInputChange}
+            checked={formValues.drink === 'cafe'}
+
+
+
+
+
+
+
+/*<FormBox>
 			
 				<FormBanner>Total:<div><>{precoTotal()}</></div></FormBanner>
 				<form onSubmit={handleSubmit}  >
@@ -246,30 +388,29 @@ export function FinalForm({orders, sendOrder, sendUserAdress, order, logado, log
 					<option value="cartão">Cartão</option>
 					</select></FormStyle>
 					{finalFormValues.pagamento === 'dinheiro' ? (<FormStyle><input type='text' name='troco' placeholder='Troco pra quanto?' onChange={handleInputChange}  /></FormStyle>) : (<div/>)}
-					
+					<button type="submit">Salvar endereço</button>
 				
 
 				
-				</form><DialogFooter><ConfirmButton onclick={() => {
-				handleSubmit();
-				sendOrder(orders, logado);
-				sendUserAdress(endereco, logado);
-				setOrders([]);
-				setUseFinalFormDialog(false);
-				setUsePizzaSize(false);
+				</form><DialogFooter>
 				
+					<ConfirmButton onClick={(e) => {console.log('funcionando');
+						handleSubmit(e); 
+						sendOrder(orders, logado); 
+						sendUserAdress(endereco, logado); 
+						setOrders([]); 
+						setUseFinalFormDialog(false); 
+						setUsePizzaSize(false);}}>
+						Pode mandar!
+					</ConfirmButton>
 				
-				}
-				
-				}>Pode mandar!
-				</ConfirmButton>
 				</DialogFooter>
 				
-			</FormBox> : <div />
+			</FormBox>*/
 
- 
-);
-}
+
+
+
 
 
 /* sendOrder(orders, logado); */
