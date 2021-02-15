@@ -144,7 +144,7 @@ export function Order({ orders, setOrders, setOpenFood,logado, login, setOpenOrd
 			  if(useFinalFormDialog === false){
 			  setUseFinalFormDialog(true)}
 		console.log(useFinalFormDialog);
-		console.log(typeof setUseFinalFormDialog);
+		console.log(orders);
           } else {
             login();
           }

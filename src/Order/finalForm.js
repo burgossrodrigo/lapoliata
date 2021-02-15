@@ -105,51 +105,16 @@ export function sendOrder(orders, {email, displayName}){
   
 }
 
-export function sendUserAdress(finalFormValues, {email, displayName}){
 
-  function RetornaDataHoraAtual(){
-    var dNow = new Date();
-    var localdate = dNow.getDate() + '/' + (dNow.getMonth()+1) + '/' + dNow.getFullYear() + '  '  + dNow.getHours() + ':' + dNow.getMinutes();
-    return localdate;
-    }
-    
-  
-  const newEnderecoRef = database.ref('endereco').push();
-  const newAdress = finalFormValues.map(endereco => {
-    return Object.keys(endereco).reduce((acc, enderecoKey) => {
-      if (!endereco[enderecoKey]) {
-        // undefined value
-        return acc;
-      }
-      return {
-        ...acc,
-        [enderecoKey]: endereco[enderecoKey]
-      };
-    }, {});
-  });
-  
-  newEnderecoRef.set({
-    
-    endereco: newAdress,
-    email,
-    displayName,
-    horaLocal: RetornaDataHoraAtual()
-  });  
-  
-}
-
-
-
-
-export function FinalForm({orders, firebaseForm, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize, email}){
+export function FinalForm({RetornaDataHoraAtual, displayName, orders, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize, email}){
 	
 	
     
 	function precoTotal(){
 		
-		if(openPizzaSize === 2){return formatPreco(42,90)};
-		if(openPizzaSize === 3){return formatPreco(47,90)};
-		if(openPizzaSize === 4){return formatPreco(52,90)};
+		if(openPizzaSize === 2){return formatPreco(42.90)};
+		if(openPizzaSize === 3){return formatPreco(47.90)};
+		if(openPizzaSize === 4){return formatPreco(52.90)};
 		
 	}
 
@@ -179,6 +144,22 @@ export function FinalForm({orders, firebaseForm, sendOrder, sendUserAdress, orde
 		console.log('***HANDLE INPUT CHANGE', data);
 		
 		
+		/* 
+		
+		
+						function writeUserData(userId, name, email, imageUrl) {
+			  firebase.database().ref('users/' + userId).set({
+				username: name,
+				email: email,
+				profile_picture : imageUrl
+			  });
+}
+		
+		
+		
+		*/
+		
+		
     };
 	
 	
@@ -187,7 +168,13 @@ export function FinalForm({orders, firebaseForm, sendOrder, sendUserAdress, orde
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-	sendUserAdress(finalFormValues, logado)
+	const newAdressRef = database.ref('adress').push();
+		newAdressRef.set({
+    
+			finalFormValues,
+			
+		 });
+	console.log({...finalFormValues});		
 	
 	
   };
@@ -220,7 +207,7 @@ export function FinalForm({orders, firebaseForm, sendOrder, sendUserAdress, orde
 				<form onSubmit={handleSubmit}  >
 				
 					Nos diga seu bairro:
-					<FormStyle><select name='bairros' placeholder='--' onChange={handleInputChange} value={finalFormValues.bairros || ''}>
+					<FormStyle><select name='bairros' placeholder='--' onChange={handleInputChange} value={finalFormValues.bairros || null}>
 					<option value="laranja">--</option>
 					<option value="laranja">Laranja</option>
 					<option value="limao">Limão</option>
@@ -237,9 +224,9 @@ export function FinalForm({orders, firebaseForm, sendOrder, sendUserAdress, orde
 				
 					Que tal um refrigerante:
 					<FormStyle><select name='refrigerante' placeholder='--' onChange={handleInputChange} value={finalFormValues.refrigerante || ''}>
-					<option value="laranja">--</option>
-					<option value="limao">Refrigerante de cola Litro</option>
-					<option selected value="coco">Guaraná Litro</option>
+					<option value="--">--</option>
+					<option value="cola">Refrigerante de cola Litro</option>
+					<option selected value="Guaraná">Guaraná Litro</option>
 	
 					</select></FormStyle>
 					
