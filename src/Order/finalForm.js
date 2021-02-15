@@ -15,6 +15,8 @@ const database = window.firebase.database();
 
 
 
+
+
 const sharedStyles = css`
   background-color: white;
   height: 40px;
@@ -106,9 +108,21 @@ export function sendOrder(orders, {email, displayName}){
 }
 
 
-export function FinalForm({RetornaDataHoraAtual, displayName, orders, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize, email}){
+export function FinalForm({photoURL, RetornaDataHoraAtual, displayName, orders, sendOrder, sendUserAdress, order, logado, login, endereco, setOrders, setUseFinalFormDialog, useFinalFormDialog, setUsePizzaSize, openPizzaSize, email}){
 	
-	
+
+	var user = window.firebase.auth().currentUser;
+	var name, email, photoUrl, uid, emailVerified;
+
+	if(user != null){
+		
+		name = user.displayName;
+		email = user.email;
+		photoURL = user.photoURL;
+		emailVerified = user.emailVerified;
+		uid = user.uid;
+		
+	}
     
 	function precoTotal(){
 		
@@ -147,12 +161,12 @@ export function FinalForm({RetornaDataHoraAtual, displayName, orders, sendOrder,
 		/* 
 		
 		
-						function writeUserData(userId, name, email, imageUrl) {
-			  firebase.database().ref('users/' + userId).set({
-				username: name,
-				email: email,
-				profile_picture : imageUrl
-			  });
+						// Create a new post reference with an auto-generated id
+var postListRef = firebase.database().ref('posts');
+var newPostRef = postListRef.push();
+newPostRef.set({
+    // ...
+});
 }
 		
 		
@@ -168,13 +182,15 @@ export function FinalForm({RetornaDataHoraAtual, displayName, orders, sendOrder,
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-	const newAdressRef = database.ref('adress').push();
-		newAdressRef.set({
-    
-			finalFormValues,
-			
-		 });
-	console.log({...finalFormValues});		
+	var setNewAdress = database.ref('adress');
+	var newAdress = setNewAdress.push();
+	newAdress.set({
+		
+		adress: finalFormValues,
+		email: email
+		
+	});
+
 	
 	
   };

@@ -43,16 +43,12 @@ const orderContainer = useOrderContainer();
 const pizzaSizeDialog = usePizzaSizeDialog();
 const pizzaSize = usePizzaSize();
 const finalFormDialog = useFinalFormDialog();
-console.log(pizzaSize);
-console.log(orders.lenght);
-console.log(useOrderContainer);
-console.log(auth.email);
+
+
 
 
  
 
-	console.log(typeof firebaseDbInstance);
-	
 	
 	
 	
